@@ -11,40 +11,34 @@ int main() {
         for (long long i = 0; i < n; i++) {
             cin >> arr[i];
         }
+         int count = 1 ;
+      int a = arr[0];
+      for(int i=1;i<n;i++){
+        if(a==arr[i])count++;
+      }
+      if (count==n) {
+            cout << "NO" << endl;
+            continue;
+        }
         sort(arr.begin(), arr.end()); // Sort the array in ascending order
 
         vector<long long> ans(n, 0);
         int j = n - 1;
-
+    int left=0,right=n-1;
         // Fill even indices with the largest elements
-        for (int i = 0; i < n; i += 2) {
-            ans[i] = arr[j];
-            j--;
+        for (int i = 0; i < n; i++) {
+            if(i%2==0)ans[i] = arr[left++];
+             else ans[i]=arr[right--];
         }
-
+        
         // Fill odd indices with the remaining elements
-        for (int i = 1; i < n; i += 2) {
-            ans[i] = arr[j];
-            j--;
-        }
+        
 
         // Validate the rearranged array
-        bool valid = true;
-        long long sum = 0;
-        for (int i = 0; i < n - 1; i++) {
-            sum += ans[i];
-            if (ans[i + 1] == sum) { // Check if the next element equals the sum
-                valid = false;
-                break;
-            }
-        }
+     
 
-        if (!valid) {
-            cout << "NO" << endl;
-            continue;
-        }
+        
 
-        // Output the result
         cout << "YES" << endl;
         for (int i = 0; i < n; i++) {
             cout << ans[i] << " ";
